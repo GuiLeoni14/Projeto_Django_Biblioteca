@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style type="text/css">
+        form{
+            font: normal 20px Arial;
+            box-shadow: 0 4px 8px;
+            background-color: #FFC0CB;
+        }
+        h1{
+            font-family: Arial;
+            font-weight: bold;
+        }
+        h3{
+            background: #4B0082;
+            color: #FFF;
+        }
+        body{
+            background-color: #FFE4E1;
+        }
+        #atributos{
+            font-family: Arial;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <h1>Cadastro dos Livros</h1>
+    </div>
+    <div class="col-8 m-auto pt-4 pb-2 text-center">
+        <div id="result"> </div>
+        <form name="form" id="form" action="{% if db %}/update/{{db.id}}/{% else %}/create/{% endif %}" method="post">
+            {% csrf_token %}
+        <!--{{form.as_p}}-->
+            <br>
+            <h3>Preencha os atributos: </h3>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Nome do Livro:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    {{form.nome}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Autor:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    {{form.autor}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Data de obtenção:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    {{form.data}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Quantidade:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    {{form.quantidade}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Editora:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    {{form.editora}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Tipo:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    {{form.tipo}}
+                </div>
+            </div>
+
+            <div class="p-2">
+                <a href="/" class="btn btn-info mt-4">Voltar</a>
+                <input type="submit" class="btn btn-success mt-4" id="salvar" value="Salvar">
+            </div>
+        </form>
+    </div>
+    {% load static %}
+    <script src="{% static 'javascript.js' %}"></script>
+</body>
+</html>

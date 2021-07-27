@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>PROJETO BLIBLIOTECA EMG</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <style type="text/css">
+        body{
+            background-color: #FFE4E1;
+        }
+        .pagination{
+            margin-bottom: 20px;
+        }
+        .step-links{
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .step-links .current{
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <h1>BIBLIOTECA-EMPRÉSTIMOS</h1>
+    </div>
+
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <a href="/createem" class="btn btn-success">Adicionar</a>
+    </div>
+
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <form method="get" action="/emprestimo">
+            <input type="text" id="searchem" name="searchem" class="form-control" placeholder="Buscar destinatário:">
+        </form>
+    </div>
+
+    <div class="col-8 m-auto pt-2 pb-2 text-center" >
+        <table class="table" >
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome do Livro</th>
+                <th scope="col">Data Emprestimo</th>
+                <th scope="col">Destinatário</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for dbs in db %}
+              <tr>
+                <td>{{dbs.id}}</td>
+                <td>{{dbs.nome}}</td>
+                <td>{{dbs.dataem}}</td>
+                <td>{{dbs.pessoa}}</td>
+                <td>{{dbs.quantidadeem}}</td>
+                <td>
+                    <a href="/viewem/{{dbs.id}}/" class="btn btn-dark" >Visualizar</a>
+                    <a href="/editemp/{{dbs.id}}/" class="btn btn-primary" >Editar</a>
+                    <a href="/deleteem/{{dbs.id}}/" class="btn btn-danger btnDel" >Deletar</a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <p>
+            <a href="/tableem" class="btn btn-warning">GERAR PDF</a>
+            <a href="/" class="btn btn btn-primary">VOLTAR</a>
+        </p>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if db.has_previous %}
+                <a href="?page={{db.previous_page_number}}"><i class="fas fa-arrow-left"></i></a>
+            {% endif %}
+
+            {% if db.paginator.num_pages %}
+            <span class="current">
+                {{ db.number }} de {{ db.paginator.num_pages }}
+            </span>
+            {% endif %}
+            {% if db.has_next %}
+                <a href="?page={{db.next_page_number}}"><i class="fas fa-arrow-right"></i></a>
+            {% endif %}
+        </span>
+    </div>
+
+    {% load static %}
+    <script src="{% static 'javascript.js' %}"></script>
+</body>
+<script language="JavaScript" type="text/javascript">
+        function funcao_pdf() {
+            var pegar_dados=document.getElementById('dados').innerHTML;
+            var janela = window.open( '  ' ,  '  ' ,'width=800,heigth=600');
+            janela.document.write('<html><head>');
+            janela.document.write('<title>PDF</title></head>');
+            janela.document.write('<body>');
+            janela.document.write(pegar_dados);
+            janela.document.write('</body></html>');
+            janela.document.close();
+            janela.print();
+        }
+
+</script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style type="text/css">
+        body{
+            background-color: #FFE4E1;
+        }
+        label{
+            background-color: #FFC0CB;
+        }
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 5px;
+          text-align: left;
+        }
+        table{
+            transform: scale(0.8);
+            background-color: #E0FFFF;
+        }
+        td{
+           height: 70px;
+           width: 1000px;
+           font-size: 25px;
+        }
+        th{
+            width: 300px;
+            font-size: 25px;
+            background-color: #B0E0E6;
+        }
+        caption{
+            font-size: 40px;
+            color: #000;
+            background-color: #B0E0E6;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-8 m-auto mt-5 pt-1 pb-1 text-center">
+        <h1>Visualização</h1>
+    </div>
+    <div class="col-8 m-auto text-center" id="dados">
+        <table>
+          <caption align="top" class="text-center">Tabela</caption>
+          <tr>
+            <th>ID</th>
+            <td>{{db.id}}</td>
+          </tr>
+          <tr>
+            <th>Nome do Livro:</th>
+            <td>{{db.nome}}</td>
+          </tr>
+          <tr>
+            <th>Data de Emprestimo:</th>
+            <td>{{db.dataem}}</td>
+          </tr>
+          <tr>
+            <th>Destinatário:</th>
+            <td>{{db.pessoa}}</td>
+          </tr>
+          <tr>
+            <th>Quantidade de livros</th>
+            <td>{{db.quantidadeem}}</td>
+          </tr>
+          <tr>
+          </tr>
+        </table>
+    </div>
+    <div class="col-8 m-auto pt-1 pb-1 text-center">
+        <a href="/homeem" class="btn btn-info">VOLTAR</a>
+        <input type="button" value="BAIXAR PDF" class="btn btn-danger" onclick="funcao_pdf()">
+    </div>
+</body>
+<script language="JavaScript" type="text/javascript">
+        function funcao_pdf() {
+            var pegar_dados=document.getElementById('dados').innerHTML;
+            var janela = window.open( '  ' ,  '  ' ,'width=800,heigth=600');
+            janela.document.write('<html><head>');
+            janela.document.write('<title>PDF</title><style>table, th, td{border: 1px solid black; border-collapse: collapse;} table{margin: auto} td{height: 100px; width: 1000px; font-size: 25px; text-align: center;} th{width: 300px; font-size:25px; text-align: center;}</style></head>');
+            janela.document.write('<body>');
+            janela.document.write(pegar_dados);
+            janela.document.write('</body></html>');
+            janela.document.close();
+            janela.print();
+        }
+
+</script>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style type="text/css">
+        form{
+            font: normal 20px Arial;
+            box-shadow: 0 4px 8px;
+            background-color: #FFC0CB;
+        }
+        h1{
+            font-family: Arial;
+            font-weight: bold;
+        }
+        h3{
+            background: #4B0082;
+            color: #FFF;
+        }
+        body{
+            background-color: #FFE4E1;
+        }
+        #atributos{
+            font-family: Arial;
+            font-weight: bold;
+        }
+        #livros{
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-8 m-auto pt-2 pb-2 text-center">
+        <h1>Edição dos Empréstimos</h1>
+    </div>
+    <div class="col-8 m-auto pt-4 pb-2 text-center">
+        <div id="result"> </div>
+        <form name="formem" id="formem" action="/editemp/{{pk}}/" method="post">
+            {% csrf_token %}
+        <!--{{form.as_p}}-->
+            <br>
+            <h3>Preencha os atributos: </h3>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Nome do Livro:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    <select class="js-example-basic-multiple" id="livros" name="states[]" multiple="multiple">
+                        <option value="{{emprestimo.nome.id}}" selected>{{emprestimo.nome.nome}}</option>
+                    {% for dbs in db %}
+                        <option value="{{dbs.id}}">{{dbs.nome}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Data:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    <input type="date" name="data" value="{{emprestimo.dataem}}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Destinatário:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    <input type="text" name="dest" value="{{emprestimo.pessoa}}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Quantidade:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    <input type="text" name="quant" value="{{emprestimo.quantidadeem}}"/>
+                </div>
+            </div>
+
+            <div class="p-2">
+                <a href="/emprestimo" class="btn btn-info mt-4">Voltar</a>
+                <input type="submit" class="btn btn-success mt-4" id="salvar" value="Salvar">
+            </div>
+        </form>
+    </div>
+    {% load static %}
+    <script src="{% static 'javascript.js' %}"></script>
+    <script language="JavaScript" type="text/javascript">
+        $(document).ready(function() {
+
+            $('#livros').select2({ maximumSelectionLength: 2 });
+        });
+    </script>
+</body>
+</html>
