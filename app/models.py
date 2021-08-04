@@ -8,6 +8,7 @@ class livro(models.Model):
     quantidade = models.IntegerField(max_length=100)
     editora = models.CharField(max_length=100)
     tipo = models.CharField(max_length=100)
+    localizacao = models.CharField(max_length=100)
     criado_em = models.DateTimeField(auto_now_add=True)
     editado_em = models.DateTimeField(auto_now=True)
 

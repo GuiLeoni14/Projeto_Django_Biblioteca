@@ -5,7 +5,7 @@ from app.models import livro, emprestimo
 class livroForm(ModelForm):
     class Meta:
         model = livro
-        fields = ["nome", "autor", "data", "quantidade", "editora", "tipo"]
+        fields = ["nome", "autor", "data", "quantidade", "editora", "tipo", "localizacao"]
 
 
 class emprestimoForm(ModelForm):

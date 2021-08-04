@@ -3,8 +3,12 @@ from app.forms import livroForm, emprestimoForm
 from app.models import livro, emprestimo
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+@login_required()
 def home(request):
     data = {}
     search = request.GET.get("search")
@@ -25,12 +29,14 @@ def home(request):
     return render(request, "index.html", data)
 
 
+@login_required()
 def form(request):
     data = {}
     data["form"] = livroForm()
     return render(request, "form.html", data)
 
 
+@login_required()
 def create(request):
     form = livroForm(request.POST or None)
     if form.is_valid():
@@ -38,12 +44,14 @@ def create(request):
         return redirect("home")
 
 
+@login_required()
 def view(request, pk):
     data = {}
     data["db"] = livro.objects.get(pk=pk)
     return render(request, "view.html", data)
 
 
+@login_required()
 def edit(request, pk):
     data = {}
     data["db"] = livro.objects.get(pk=pk)
@@ -51,6 +59,7 @@ def edit(request, pk):
     return render(request, "form.html", data)
 
 
+@login_required()
 def update(request, pk):
     data = {}
     data["db"] = livro.objects.get(pk=pk)
@@ -60,18 +69,21 @@ def update(request, pk):
         return redirect("home")
 
 
+@login_required()
 def delete(request, pk):
     db = livro.objects.get(pk=pk)
     db.delete()
     return redirect("home")
 
 
+@login_required()
 def table(request):
     data = {}
     data["db"] = data["db"] = livro.objects.all()  # livroForm()
     return render(request, "table.html", data)
 
 
+@login_required()
 def homeem(request): #nao precisa mais dele
     data = {}
     searchem = request.GET.get("searchem")
@@ -81,12 +93,13 @@ def homeem(request): #nao precisa mais dele
         data["db"] = emprestimo.objects.all()
 
         emprestimo_list = livro.objects.all()
-        paginator = Paginator(emprestimo_list, 2)
+        paginator = Paginator(emprestimo_list, 10)
         page = request.GET.get('page')
         data['db'] = paginator.get_page(page)
     return render(request, "emprestimo.html", data)
 
 
+@login_required()
 def list_emprestimo(request):
     data = {}
     #data["db"] = emprestimo.objects.all()
@@ -97,12 +110,13 @@ def list_emprestimo(request):
         data["db"] = emprestimo.objects.all()
 
         emprestimo_list = emprestimo.objects.all()
-        paginator = Paginator(emprestimo_list, 4)
+        paginator = Paginator(emprestimo_list, 10)
         page = request.GET.get('page')
         data['db'] = paginator.get_page(page)
     return render(request, "emprestimo.html", data)
 
 
+@login_required()
 def createem(request):
     if request.POST:
         option = request.POST["states[]"]
@@ -119,12 +133,14 @@ def createem(request):
     return render(request, "formem.html", data)
 
 
+@login_required()
 def viewem(request, pk):
     data = {}
     data["db"] = get_object_or_404(emprestimo, pk=pk)
     return render(request, "viewem.html", data)
 
 
+@login_required()
 def editem(request, pk):            #puxa o formulário vindo do batão editar do emprestimo.html
     data = {}
     if request.POST:
@@ -132,6 +148,8 @@ def editem(request, pk):            #puxa o formulário vindo do batão editar d
         print(data['db'])
     return render(request, "formem.html", data)
 
+
+@login_required()
 def editemp(request, pk):
     data = {}
     data['db'] = livro.objects.all()
@@ -144,9 +162,9 @@ def editemp(request, pk):
         pessoa = request.POST["dest"]
         quantidadeem = request.POST["quant"]
         registro.nome_id = option
-        lista = map(int, request.POST.getlist("states[]"))
+        #lista = map(int, request.POST.getlist("states[]"))
         #lista = request.POST.getlist("states[]")
-        print(lista)
+        #print(lista)
         registro.dataem = dataem
         registro.pessoa = pessoa
         registro.quantidadeem = quantidadeem
@@ -155,6 +173,8 @@ def editemp(request, pk):
     return render(request, 'editemp.html', data) #editemp.html
 
 
+
+@login_required()
 def updateem(request, pk):  #faz o update no banco
     data = {}
     data["db"] = emprestimo.objects.get(pk=pk)
@@ -163,12 +183,15 @@ def updateem(request, pk):  #faz o update no banco
         form.save()
         return redirect("emprestimo")
 
+
+@login_required()
 def deleteem(request, pk):
     db = emprestimo.objects.get(pk=pk)
     db.delete()
     return redirect("emprestimo")
 
 
+@login_required()
 def tableem(request):
     data = {}
     data["db"] = data["db"] = emprestimo.objects.all()  # livroForm()

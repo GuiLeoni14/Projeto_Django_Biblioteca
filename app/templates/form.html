@@ -25,11 +25,20 @@
             font-family: Arial;
             font-weight: bold;
         }
+        #edicao{
+            border-style: solid;
+            border-color: #4B0082;
+            background-color: #800000;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="col-8 m-auto pt-2 pb-2 text-center">
+    <div class="col-6 m-auto pt-2 pb-2 text-center">
         <h1>Cadastro dos Livros</h1>
+        {% if db %}
+            <h3 id="edicao">Ultima edição: {{db.editado_em}}</h3>
+        {% endif %}
     </div>
     <div class="col-8 m-auto pt-4 pb-2 text-center">
         <div id="result"> </div>
@@ -86,7 +95,14 @@
                     {{form.tipo}}
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Localização:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    {{form.localizacao}}
+                </div>
+            </div>
             <div class="p-2">
                 <a href="/" class="btn btn-info mt-4">Voltar</a>
                 <input type="submit" class="btn btn-success mt-4" id="salvar" value="Salvar">

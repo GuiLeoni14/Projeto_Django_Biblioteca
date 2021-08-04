@@ -68,11 +68,15 @@
             <td>{{db.quantidadeem}}</td>
           </tr>
           <tr>
+            <th>Criado em</th>
+            <td>{{db.criado_emp}}</td>
+          </tr>
+          <tr>
           </tr>
         </table>
     </div>
     <div class="col-8 m-auto pt-1 pb-1 text-center">
-        <a href="/homeem" class="btn btn-info">VOLTAR</a>
+        <a href="/emprestimo" class="btn btn-info">VOLTAR</a>
         <input type="button" value="BAIXAR PDF" class="btn btn-danger" onclick="funcao_pdf()">
     </div>
 </body>
@@ -81,7 +85,7 @@
             var pegar_dados=document.getElementById('dados').innerHTML;
             var janela = window.open( '  ' ,  '  ' ,'width=800,heigth=600');
             janela.document.write('<html><head>');
-            janela.document.write('<title>PDF</title><style>table, th, td{border: 1px solid black; border-collapse: collapse;} table{margin: auto} td{height: 100px; width: 1000px; font-size: 25px; text-align: center;} th{width: 300px; font-size:25px; text-align: center;}</style></head>');
+            janela.document.write('<title>PDF-EMPRÉSTIMO</title><style>table, th, td{border: 1px solid black; border-collapse: collapse;} table{margin: auto} td{height: 100px; width: 1000px; font-size: 25px; text-align: center;} th{width: 300px; font-size:25px; text-align: center;} caption{font-size: 40px}</style></head>');
             janela.document.write('<body>');
             janela.document.write(pegar_dados);
             janela.document.write('</body></html>');
