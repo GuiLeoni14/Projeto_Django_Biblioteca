@@ -25,6 +25,9 @@
             background: #fff;
             box-shadow: 0 4px 8px;
         }
+        #td{
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +65,7 @@
                 <td>{{dbs.tipo}}</td>
                 <td>{{dbs.data}}</td>
                 <td>{{dbs.quantidade}}</td>
-                <td>
+                <td id="td">
                     <a href="/view/{{dbs.id}}/" class="btn btn-dark" >Visualizar</a>
                     <a href="/edit/{{dbs.id}}/" class="btn btn-primary" >Editar</a>
                     <a href="/delete/{{dbs.id}}/" class="btn btn-danger btnDel" >Deletar</a>

@@ -25,6 +25,9 @@
             background: #fff;
             box-shadow: 0 4px 8px;
         }
+        #td{
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +65,7 @@
                 <td>{{dbs.dataem}}</td>
                 <td>{{dbs.pessoa}}</td>
                 <td>{{dbs.quantidadeem}}</td>
-                <td>
+                <td id="td">
                     <a href="/viewem/{{dbs.id}}/" class="btn btn-dark" >Visualizar</a>
                     <a href="/editemp/{{dbs.id}}/" class="btn btn-primary" >Editar</a>
                     <a href="/deleteem/{{dbs.id}}/" class="btn btn-danger btnDel" >Deletar</a>
