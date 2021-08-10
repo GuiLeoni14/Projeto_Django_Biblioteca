@@ -17,7 +17,9 @@
                 <th scope="col">DATA</th>
                 <th scope="col">DESTINATÁRIO</th>
                 <th scope="col">QUANTIDADE</th>
+                <th scope="col">SÉRIE</th>
                 <th scope="col">LIVRO</th>
+                <th scope="col">ESTADO</th>
               </tr>
             </thead>
 
@@ -28,7 +30,9 @@
                 <td>{{dbs.dataem}}</td>
                 <td>{{dbs.pessoa}}</td>
                 <td>{{dbs.quantidadeem}}</td>
+                <td>{{dbs.serie}}</td>
                 <td>{{dbs.nome}}</td>
+                <td>{{dbs.estado}}</td>
               </tr>
             {% endfor %}
             </tbody>
@@ -38,10 +42,8 @@
     <div class="col-8 m-auto pt-2 pb-2 text-center">
         <p>
             <input type="button" value="BAIXAR" class="btn btn-danger" onclick="funcao_pdf()">
+            <a href="/emprestimo" class="btn btn-info">Voltar</a>
         </p>
-    </div>
-    <div class="col-8 m-auto pt-2 pb-2 text-center">
-        <a href="/emprestimo" class="btn btn-info">Voltar</a>
     </div>
     {% load static %}
     <script src="{% static 'javascript.js' %}"></script>

@@ -12,13 +12,40 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     data = {}
     search = request.GET.get("search")
+    buscar_data = request.GET.get("buscar_data")
+    filter = request.GET.get("filter_livro")
+    filterAlf = request.GET.get("filterAlf_livro")
     if search:
         data["db"] = livro.objects.filter(nome__icontains=search)
-    else:
-        data["db"] = livro.objects.all()
 
-        livro_list = livro.objects.all()
-        paginator = Paginator(livro_list, 4)
+    elif filter:
+        data["db"] = livro.objects.filter(tipo__icontains=filter).order_by('-criado_em')
+        '''paginator = Paginator(data['db'], 4)
+        page = request.GET.get('page')
+        data['db'] = paginator.get_page(page)'''
+
+    elif filterAlf:
+
+        if filterAlf == 'crescente':
+            data["db"] = livro.objects.all().order_by('nome', '-criado_em')
+
+        elif filterAlf == 'recentes':
+            data["db"] = livro.objects.all().order_by('-data', '-criado_em')
+
+        elif filterAlf == 'antigos':
+            data["db"] = livro.objects.all().order_by('data', '-criado_em')
+
+        else:
+            data["db"] = livro.objects.all().order_by('-nome', '-criado_em')
+
+    elif buscar_data:
+        data["db"] = livro.objects.filter(data__icontains=buscar_data)
+
+    else:
+        data["db"] = livro.objects.all().order_by('-criado_em')
+
+        livro_list = livro.objects.all().order_by('-criado_em')
+        paginator = Paginator(livro_list, 10)
         page = request.GET.get('page')
         data['db'] = paginator.get_page(page)
         # all = livro.objects.all()
@@ -104,12 +131,44 @@ def list_emprestimo(request):
     data = {}
     #data["db"] = emprestimo.objects.all()
     searchem = request.GET.get("searchem")
+    buscar_data = request.GET.get("buscar_data_emp")
+    filter = request.GET.get("filter")
+    filterAlf = request.GET.get("filterAlf")
+
     if searchem:
         data["db"] = emprestimo.objects.filter(pessoa__icontains=searchem)
-    else:
-        data["db"] = emprestimo.objects.all()
 
-        emprestimo_list = emprestimo.objects.all()
+    elif filter:
+
+        data["db"] = emprestimo.objects.filter(estado__icontains=filter).order_by('-criado_emp')
+        '''paginator = Paginator(data['db'], 4)
+        page = request.GET.get('page')
+        data['db'] = paginator.get_page(page)'''
+
+    elif filterAlf:
+
+        if filterAlf == 'crescente':
+            data["db"] = emprestimo.objects.all().order_by('pessoa')
+
+        elif filterAlf == 'recentes':
+            data["db"] = emprestimo.objects.all().order_by('-criado_emp')
+
+        elif filterAlf == 'antigos':
+            data["db"] = emprestimo.objects.all().order_by('criado_emp')
+
+        elif filterAlf == 'serie':
+            data["db"] = emprestimo.objects.all().order_by('serie')
+
+        else:
+            data["db"] = emprestimo.objects.all().order_by('-pessoa')
+
+    elif buscar_data:
+        data['db'] = emprestimo.objects.filter(dataem__icontains=buscar_data)
+
+    else:
+        data["db"] = emprestimo.objects.all().order_by('-estado', '-criado_emp')
+
+        emprestimo_list = emprestimo.objects.all().order_by('-estado', '-criado_emp')
         paginator = Paginator(emprestimo_list, 10)
         page = request.GET.get('page')
         data['db'] = paginator.get_page(page)
@@ -123,8 +182,10 @@ def createem(request):
         dataem = request.POST["data"]
         pessoa = request.POST["dest"]
         quantidadeem = request.POST["quant"]
+        estado = request.POST["estado"]
+        serie = request.POST["serie"]
         emprestimo_feito = emprestimo.objects.create(
-            nome_id=option, dataem=dataem, pessoa=pessoa, quantidadeem=quantidadeem
+            nome_id=option, dataem=dataem, pessoa=pessoa, quantidadeem=quantidadeem, estado=estado, serie=serie
         )
         emprestimo_feito.save()
         return redirect("emprestimo")
@@ -161,6 +222,8 @@ def editemp(request, pk):
         dataem = request.POST["data"]
         pessoa = request.POST["dest"]
         quantidadeem = request.POST["quant"]
+        serie = request.POST["serie"]
+        estado = request.POST["estado"]
         registro.nome_id = option
         #lista = map(int, request.POST.getlist("states[]"))
         #lista = request.POST.getlist("states[]")
@@ -168,6 +231,8 @@ def editemp(request, pk):
         registro.dataem = dataem
         registro.pessoa = pessoa
         registro.quantidadeem = quantidadeem
+        registro.serie = serie
+        registro.estado = estado
         registro.save()
         return redirect('emprestimo')   #(request, 'emprestimo.html', data)
     return render(request, 'editemp.html', data) #editemp.html
@@ -194,5 +259,19 @@ def deleteem(request, pk):
 @login_required()
 def tableem(request):
     data = {}
-    data["db"] = data["db"] = emprestimo.objects.all()  # livroForm()
+    data["db"] = data["db"] = emprestimo.objects.all().order_by('-estado', 'serie')  # livroForm()
     return render(request, "tableem.html", data)
+
+
+@login_required()
+def changeStatus(request, pk):
+    data = {}
+    data["db"] = emprestimo.objects.get(pk=pk)
+
+    if(data['db'].estado == 'emprestado'):
+        data['db'].estado = 'devolvido'
+    else:
+        data['db'].estado = 'emprestado'
+    data['db'].save()
+    return redirect("emprestimo")
+

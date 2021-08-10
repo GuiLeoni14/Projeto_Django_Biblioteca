@@ -33,6 +33,7 @@ from app.views import (
     deleteem,
     tableem,
     editemp,
+    changeStatus,
 )
 
 urlpatterns = [
@@ -54,5 +55,6 @@ urlpatterns = [
     path("deleteem/<int:pk>/", deleteem, name="daleteem"),
     path("tableem/", tableem, name="tableem"),
     path("editemp/<int:pk>/", editemp, name="editemp"),
+    path("changestatus/<int:pk>/", changeStatus, name="change-status"),
     path("accounts/", include("django.contrib.auth.urls")),
 ]

@@ -41,17 +41,39 @@
         }
         form.addEventListener('submit',sendForm,false);
     }
+
 })(window,document);
 
-function funcao_pdf()
-    {
-        var pegar_dados = document.getElementById('dados').InnerHTMl;
-        var janela = window.open('','','width=800, heigth=600');
-        janela.document.write('<html><head>');
-        janela.document.write('<title>PDF</title></head>');
-        janela.document.write('<body');
-        janela.document.write(pegar_dados);
-        janela.document.write('</body></html>');
-        janela.document.close();
-        janela.print();
-    }
+$(document).ready(function(){
+    var baseUrl = window.location.origin + '/emprestimo';
+    var baseUrl_livro = window.location.origin + '/';
+    var filter = $('#filter');
+    var filterAlf = $('#filterAlf');
+    var filter_livro = $('#filter_livro')
+    var filterAlf_livro = $('#filterAlf_livro');
+
+    $(filter).change(function() {
+       var filter = $(this).val();
+       console.log(filter)
+       window.location.href = baseUrl + '?filter=' + filter;
+    });
+
+    $(filter_livro).change(function() {
+       var filter_livro = $(this).val();
+       console.log(filter_livro)
+       window.location.href = baseUrl_livro + '?filter_livro=' + filter_livro;
+    })
+
+    $(filterAlf).change(function() {
+       var filterAlf = $(this).val();
+       console.log(filterAlf)
+       window.location.href = baseUrl + '?filterAlf=' + filterAlf;
+    });
+
+    $(filterAlf_livro).change(function() {
+       var filterAlf_livro = $(this).val();
+       console.log(filterAlf_livro)
+       window.location.href = baseUrl_livro + '?filterAlf_livro=' + filterAlf_livro;
+    });
+
+});

@@ -11,3 +11,4 @@ class LivroAdmin(admin.ModelAdmin):
 
 admin.site.register(livro, LivroAdmin)
 admin.site.register(emprestimo)
+

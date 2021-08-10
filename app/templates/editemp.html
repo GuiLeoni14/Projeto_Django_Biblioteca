@@ -88,7 +88,35 @@
                     <input type="text" name="quant" value="{{emprestimo.quantidadeem}}"/>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Série:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    <select name="serie" id="serie">
+                        <option value="{{emprestimo.serie}}">{{emprestimo.serie}}</option>
+                        <option value="EF 4° Ano" name="serie">EF 4° Ano</option>
+                        <option value="EF 5° Ano" name="serie">EF 5° Ano</option>
+                        <option value="1° Ano" name="serie">1° Ano</option>
+                        <option value="2° Ano" name="serie">2° Ano</option>
+                        <option value="3° Ano" name="serie">3° Ano</option>
+                        <option value="4° Ano" name="serie">4° Ano</option>
+                        <option value="5° Ano" name="serie">5° Ano</option>
+                        <option value="6° Ano" name="serie">6° Ano</option>
+                        <option value="7° Ano" name="serie">7° Ano</option>
+                        <option value="8° Ano" name="serie">8° Ano</option>
+                        <option value="9° Ano" name="serie">9° Ano</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 p-2 text-end">
+                    Estado:
+                </div>
+                <div class="col-8 p-2 text-start">
+                    <input type="text" name="estado" value="{{emprestimo.estado}}"/>
+                </div>
+            </div>
             <div class="p-2">
                 <a href="/emprestimo" class="btn btn-info mt-4">Voltar</a>
                 <input type="submit" class="btn btn-success mt-4" id="salvar" value="Salvar">

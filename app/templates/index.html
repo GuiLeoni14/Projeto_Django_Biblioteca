@@ -5,6 +5,7 @@
     <title>PROJETO BLIBLIOTECA EMG</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <style type="text/css">
         body{
             background-color: #FFE4E1;
@@ -28,6 +29,72 @@
         #td{
             white-space: nowrap;
         }
+        #btn-success{
+            transition: background 0.5s;
+        }
+        #btn-success:hover{
+            background: #32CD32;
+            border-color: #fff;
+        }
+        #sair{
+            transition: transform 0.3s;
+        }
+        #sair:hover{
+            transform: translateX(0.5rem);
+        }
+
+        #cabecalho{
+            background-color: #DDA0DD;
+        }
+        #gerar-pdf{
+            transition: transform 0.3s;
+        }
+        #gerar-pdf:hover{
+            transform: translateY(-0.5rem);
+            background:	#0000FF;
+            color: #FFF;
+        }
+        .filter-div {
+            margin-bottom: 5px;
+            margin-top: 10px;
+            padding: 0;
+
+        }
+
+        #filter_livro {
+            display: inline-block;
+            width: 200px;
+            margin-left: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #BA55D3;
+        }
+        #filterAlf_livro{
+            width: 200px;
+            border: 2px solid #BA55D3;
+            display: inline-block
+        }
+        #filtrar-por {
+            color: #00000;
+            background-color: #DA70D6;
+            border-height: 3rem;
+            border-radius: 5px;
+            font-size: 18px;
+            border: 4px solid #BA55D3;
+        }
+        #form-buscar-data{
+            text-align: right;
+            display: inline-block;
+            font-size: 18px;
+            border: 2px solid #BA55D3;
+            border-radius: .25rem;
+        }
+        #recarregar{
+            margin-left: 95px;
+        }
+        #recarregar:hover {
+            transform: scale(1.1);
+            transition: all 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -36,19 +103,38 @@
     </div>
 
     <div class="col-8 m-auto pt-2 pb-2 text-center">
-        <a href="/form" class="btn btn-success">Adicionar</a>
+        <a href="/form" class="btn btn-success" id="btn-success">Adicionar</a>
     </div>
 
     <div class="col-8 m-auto pt-2 pb-2 text-center">
         <form method="get">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Buscar:">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Buscar livro:">
         </form>
     </div>
-
+        <div class="col-8 m-auto pt-2 pb-2 filter-div">
+            <span id="filtrar-por" class="col-2">Filtrar por:</span>
+            <select name="filter_livro" id="filter_livro" class="form-control">
+                <option value="">Escolha uma opção:</option>
+                <option value="didatico">Didáticos</option>
+                <option value="manual">Manual do Professor</option>
+                <option value="literatura">Literatura</option>
+            </select>
+            <select name="filter-alfabetica" id="filterAlf_livro" class="form-control">
+                <option value="">Ordenar por:</option>
+                <option value="crescente">A-Z</option>
+                <option value="decrescente">Z-A</option>
+                <option value="recentes">Recentes</option>
+                <option value="antigos">Antigos</option>
+            </select>
+            <form method="GET" id="form-buscar-data">
+                <input type="text" id="buscar_data" name="buscar_data" placeholder="Buscar por ano: ">
+            </form>
+            <a href="/" class="btn btn-warning" id="recarregar"><i class="fas fa-undo"></i></a>
+        </div>
     <div class="col-8 m-auto pt-2 pb-2 text-center" >
         <table class="table">
             <thead class="thead-dark">
-              <tr>
+              <tr id="cabecalho">
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Tipo</th>
@@ -77,9 +163,9 @@
     </div>
     <div class="col-8 m-auto pt-2 pb-2 text-center">
         <p>
-            <a href="/table" class="btn btn-info">GERAR PDF</a>
+            <a href="/table" class="btn btn-info" id="gerar-pdf">GERAR PDF</a>
             <a href="/emprestimo" class="btn btn-warning">EMPRESTIMOS</a>
-            <a class="btn btn-primary" href="/accounts/logout" role="button" ><i class="fas fa-sign-in-alt"></i></a>
+            <a class="btn btn-primary" href="/accounts/logout" role="button" id="sair"><i class="fas fa-sign-in-alt"></i></a>
         </p>
     </div>
     <div class="pagination">
