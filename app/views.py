@@ -17,30 +17,47 @@ def home(request):
     filterAlf = request.GET.get("filterAlf_livro")
     if search:
         data["db"] = livro.objects.filter(nome__icontains=search)
+        paginator = Paginator(data['db'], 10)
+        page = request.GET.get('page')
+        data['db'] = paginator.get_page(page)
 
     elif filter:
         data["db"] = livro.objects.filter(tipo__icontains=filter).order_by('-criado_em')
-        '''paginator = Paginator(data['db'], 4)
+        paginator = Paginator(data['db'], 10)
         page = request.GET.get('page')
-        data['db'] = paginator.get_page(page)'''
+        data['db'] = paginator.get_page(page)
 
     elif filterAlf:
 
         if filterAlf == 'crescente':
             data["db"] = livro.objects.all().order_by('nome', '-criado_em')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
         elif filterAlf == 'recentes':
             data["db"] = livro.objects.all().order_by('-data', '-criado_em')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
         elif filterAlf == 'antigos':
             data["db"] = livro.objects.all().order_by('data', '-criado_em')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
         else:
             data["db"] = livro.objects.all().order_by('-nome', '-criado_em')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
     elif buscar_data:
         data["db"] = livro.objects.filter(data__icontains=buscar_data)
-
+        paginator = Paginator(data['db'], 10)
+        page = request.GET.get('page')
+        data['db'] = paginator.get_page(page)
     else:
         data["db"] = livro.objects.all().order_by('-criado_em')
 
@@ -116,6 +133,10 @@ def homeem(request): #nao precisa mais dele
     searchem = request.GET.get("searchem")
     if searchem:
         data["db"] = emprestimo.objects.filter(pessoa__icontains=searchem)
+        paginator = Paginator(data['db'], 10)
+        page = request.GET.get('page')
+        data['db'] = paginator.get_page(page)
+
     else:
         data["db"] = emprestimo.objects.all()
 
@@ -137,33 +158,54 @@ def list_emprestimo(request):
 
     if searchem:
         data["db"] = emprestimo.objects.filter(pessoa__icontains=searchem)
+        paginator = Paginator(data['db'], 10)
+        page = request.GET.get('page')
+        data['db'] = paginator.get_page(page)
 
     elif filter:
 
         data["db"] = emprestimo.objects.filter(estado__icontains=filter).order_by('-criado_emp')
-        '''paginator = Paginator(data['db'], 4)
+        paginator = Paginator(data['db'], 10)
         page = request.GET.get('page')
-        data['db'] = paginator.get_page(page)'''
+        data['db'] = paginator.get_page(page)
 
     elif filterAlf:
 
         if filterAlf == 'crescente':
             data["db"] = emprestimo.objects.all().order_by('pessoa')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
         elif filterAlf == 'recentes':
             data["db"] = emprestimo.objects.all().order_by('-criado_emp')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
         elif filterAlf == 'antigos':
             data["db"] = emprestimo.objects.all().order_by('criado_emp')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
         elif filterAlf == 'serie':
             data["db"] = emprestimo.objects.all().order_by('serie')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
         else:
             data["db"] = emprestimo.objects.all().order_by('-pessoa')
+            paginator = Paginator(data['db'], 10)
+            page = request.GET.get('page')
+            data['db'] = paginator.get_page(page)
 
     elif buscar_data:
         data['db'] = emprestimo.objects.filter(dataem__icontains=buscar_data)
+        paginator = Paginator(data['db'], 10)
+        page = request.GET.get('page')
+        data['db'] = paginator.get_page(page)
 
     else:
         data["db"] = emprestimo.objects.all().order_by('-estado', '-criado_emp')

@@ -184,7 +184,7 @@
     <div class="pagination">
         <span class="step-links">
             {% if db.has_previous %}
-                <a href="?page={{db.previous_page_number}}"><i class="fas fa-arrow-left"></i></a>
+                <a href="{{request.get_full_path}}&page={{db.previous_page_number}}"><i class="fas fa-arrow-left"></i></a>
             {% endif %}
 
             {% if db.paginator.num_pages %}
@@ -193,7 +193,7 @@
             </span>
             {% endif %}
             {% if db.has_next %}
-                <a href="?page={{db.next_page_number}}"><i class="fas fa-arrow-right"></i></a>
+                <a href="{{request.get_full_path}}&page={{db.next_page_number}}"><i class="fas fa-arrow-right"></i></a>
             {% endif %}
         </span>
     </div>
