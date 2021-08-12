@@ -58,10 +58,24 @@
                 console.log('funcionou emprestimo');
            }
 
-
-
     });
 
+    $( document ).ready(function() {
+
+        var sair = $('#sair');
+        $(sair).on('click', function(e) {
+
+            e.preventDefault();
+
+            var sairLink = $(this).attr('href');
+            var result = confirm('Eii, psiu!! Deseja mesmo sair? ');
+
+            if(result) {
+                window.location.href = sairLink;
+            }
+
+        });
+    });
 })(window,document);
 
 $(document).ready(function(){
