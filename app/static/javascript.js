@@ -50,10 +50,10 @@
             var baseUrl2 = window.location.origin + '/emprestimo/?page=2'
             console.log(base);
 
-            if (base === 'http://localhost:8000/'){
+            if ((base === 'http://localhost:8000/') || (base === 'http://192.168.0.189:8000/')){
                 b.href = baseUrl
                 console.log('funcionou');
-           }else if(base === 'http://localhost:8000/emprestimo/'){
+           }else if((base === 'http://localhost:8000/emprestimo/') || (base === 'http://192.168.0.189:8000/emprestimo/')){
                 b.href = baseUrl2
                 console.log('funcionou emprestimo');
            }
