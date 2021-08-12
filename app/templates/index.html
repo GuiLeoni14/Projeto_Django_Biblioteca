@@ -58,6 +58,7 @@
             margin-bottom: 5px;
             margin-top: 10px;
             padding: 0;
+            white-space: nowrap;
 
         }
 
@@ -129,7 +130,7 @@
             <form method="GET" id="form-buscar-data">
                 <input type="text" id="buscar_data" name="buscar_data" placeholder="Buscar por ano: ">
             </form>
-            <a href="/" class="btn btn-warning" id="recarregar"><i class="fas fa-undo"></i></a>
+            <a href="/" class="btn btn-warning" name="recarregar" id="recarregar"><i class="fas fa-undo"></i></a>
         </div>
     <div class="col-8 m-auto pt-2 pb-2 text-center" >
         <table class="table">
@@ -180,7 +181,7 @@
             </span>
             {% endif %}
             {% if db.has_next %}
-                <a href="{{request.get_full_path}}&page={{db.next_page_number}}"><i class="fas fa-arrow-right"></i></a>
+                <a href="{{request.get_full_path}}&page={{db.next_page_number}}" name="b" id="b"><i class="fas fa-arrow-right"></i></a>
             {% endif %}
         </span>
     </div>

@@ -41,6 +41,26 @@
         }
         form.addEventListener('submit',sendForm,false);
     }
+    //mudar link do href do recarregar
+    $(document).ready(function(){
+            const a = document.querySelector("#recarregar");
+            const b = document.querySelector("#b");
+            var base = window.location.href
+            var baseUrl = window.location.origin + '/?page=2'
+            var baseUrl2 = window.location.origin + '/emprestimo/?page=2'
+            console.log(base);
+
+            if (base === 'http://localhost:8000/'){
+                b.href = baseUrl
+                console.log('funcionou');
+           }else if(base === 'http://localhost:8000/emprestimo/'){
+                b.href = baseUrl2
+                console.log('funcionou emprestimo');
+           }
+
+
+
+    });
 
 })(window,document);
 
@@ -54,7 +74,7 @@ $(document).ready(function(){
 
     $(filter).change(function() {
        var filter = $(this).val();
-       console.log(filter)
+       console.log(baseUrl)
        window.location.href = baseUrl + '?filter=' + filter;
     });
 
