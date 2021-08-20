@@ -81,10 +81,12 @@
 $(document).ready(function(){
     var baseUrl = window.location.origin + '/emprestimo';
     var baseUrl_livro = window.location.origin + '/';
+    var baseUrl_etiqueta = window.location.origin + '/table';
     var filter = $('#filter');
     var filterAlf = $('#filterAlf');
     var filter_livro = $('#filter_livro')
     var filterAlf_livro = $('#filterAlf_livro');
+    var etiqueta = $('#etiqueta');
 
     $(filter).change(function() {
        var filter = $(this).val();
@@ -109,5 +111,11 @@ $(document).ready(function(){
        console.log(filterAlf_livro)
        window.location.href = baseUrl_livro + '?filterAlf_livro=' + filterAlf_livro;
     });
+
+    $(etiqueta).change(function() {
+        var etiqueta = $(this).val();
+        console.log(etiqueta)
+        window.location.href = baseUrl_etiqueta + '?etiqueta=' + etiqueta;
+     });
 
 });

@@ -11,38 +11,52 @@
         label{
             background-color: #FFC0CB;
         }
-        table, th, td {
+        #dados table,
+        #dados th,
+        #dados td{
           border: 1px solid black;
           border-collapse: collapse;
         }
-        th, td {
+
+        #dados th,
+        #dados td{
           padding: 5px;
-          text-align: left;
+          text-align: center;
         }
-        table{
-            transform: scale(0.8);
-            background-color: #E0FFFF;
+        #dados table{
+          box-shadow: 0 10px 20px 10px;
+          transform: scale(1);
+          background-color: #F2F2F2;
         }
-        td{
-           height: 70px;
-           width: 1000px;
-           font-size: 25px;
+        #dados td{
+          background: #e8c9f0;
+          height: 70px;
+          width: 1000px;
+          font-size: 30px;
         }
-        th{
+        #dados th{
             width: 300px;
-            font-size: 25px;
-            background-color: #B0E0E6;
+            font-size: 30px;
+            background-color: #c58ed3;
+            white-space: nowrap;
+            padding: 10px;
         }
-        caption{
-            font-size: 40px;
-            color: #000;
-            background-color: #B0E0E6;
+        #dados caption{
+          caption-side: top;
+          font-size: 40px;
+          color: #000;
+          background-color: #c58ed3;
+          border: 1px solid black;
+        }
+        #name{
+          text-shadow: 2px 2px black;
+          color: rgb(190, 63, 216);
         }
     </style>
 </head>
 <body>
     <div class="col-8 m-auto mt-5 pt-1 pb-1 text-center">
-        <h1>Visualização</h1>
+        <h1>Visualização do <strong id="name">{{db.nome}}</strong></h1>
     </div>
     <div class="col-8 m-auto text-center" id="dados">
         <table>
@@ -83,8 +97,8 @@
           </tr>
         </table>
     </div>
-    <div class="col-8 m-auto pt-1 pb-1 text-center">
-        <a href="/emprestimo" class="btn btn-info">VOLTAR</a>
+    <div class="col-8 m-auto mt-4 pt-1 pb-1 text-center">
+        <a href="javascript:void(0)" onClick="history.go(-1); return false;" class="btn btn-info">VOLTAR</a>
         <input type="button" value="BAIXAR PDF" class="btn btn-danger" onclick="funcao_pdf()">
     </div>
 </body>

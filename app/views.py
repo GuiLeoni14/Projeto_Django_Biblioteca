@@ -123,7 +123,14 @@ def delete(request, pk):
 @login_required()
 def table(request):
     data = {}
-    data["db"] = data["db"] = livro.objects.all()  # livroForm()
+    etiqueta = request.GET.get("etiqueta")
+    if etiqueta:
+        if etiqueta == 'etiqueta':
+            data['table'] = livro.objects.all()
+        else:
+            data['db'] = livro.objects.all()  # livroForm()
+    else:
+        data['db'] = livro.objects.all()
     return render(request, "table.html", data)
 
 
