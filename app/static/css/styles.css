@@ -119,6 +119,10 @@ nav ul li #anterior:hover{
     background-color: #fdfdfd;
   }
 
+  #card-body{
+    box-shadow: 0 4px 8px;
+  }
+
   /* CABEÇALHO */
 
   header {

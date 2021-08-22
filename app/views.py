@@ -18,7 +18,7 @@ def home(request):
     if search:
         data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
         data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-        data["filter"] = livro.objects.filter(nome__icontains=search)
+        data["filter"] = livro.objects.filter(nome__icontains=search).order_by('-data')
         paginator = Paginator(data['filter'], 10)
         page = request.GET.get('page')
         data['filter'] = paginator.get_page(page)
@@ -26,7 +26,7 @@ def home(request):
     elif filter:
         data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
         data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-        data["filter"] = livro.objects.filter(tipo__icontains=filter).order_by('-criado_em')
+        data["filter"] = livro.objects.filter(tipo__icontains=filter).order_by('-data')
         paginator = Paginator(data['filter'], 10)
         page = request.GET.get('page')
         data['filter'] = paginator.get_page(page)
@@ -36,7 +36,7 @@ def home(request):
         if filterAlf == 'crescente':
             data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
             data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-            data["filter"] = livro.objects.all().order_by('nome', '-criado_em')
+            data["filter"] = livro.objects.all().order_by('nome', '-data')
             paginator = Paginator(data['filter'], 10)
             page = request.GET.get('page')
             data['filter'] = paginator.get_page(page)
@@ -60,7 +60,7 @@ def home(request):
         else:
             data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
             data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-            data["filter"] = livro.objects.all().order_by('-nome', '-criado_em')
+            data["filter"] = livro.objects.all().order_by('-nome', '-data')
             paginator = Paginator(data['filter'], 10)
             page = request.GET.get('page')
             data['filter'] = paginator.get_page(page)
@@ -68,7 +68,7 @@ def home(request):
     elif buscar_data:
         data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
         data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-        data["filter"] = livro.objects.filter(data__icontains=buscar_data)
+        data["filter"] = livro.objects.filter(data__icontains=buscar_data).order_by('-data')
         paginator = Paginator(data['filter'], 10)
         page = request.GET.get('page')
         data['filter'] = paginator.get_page(page)
@@ -77,7 +77,7 @@ def home(request):
         data['re'] = livro.objects.all().order_by('-editado_em')[:5]
         data["db"] = livro.objects.all().order_by('-criado_em')
 
-        livro_list = livro.objects.all().order_by('-criado_em')
+        livro_list = livro.objects.all().order_by('-data' , '-criado_em')
         paginator = Paginator(livro_list, 10)
         page = request.GET.get('page')
         data['db'] = paginator.get_page(page)
@@ -152,15 +152,15 @@ def table(request):
         if etiqueta == 'etiqueta':
             data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
             data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-            data['table'] = livro.objects.all()
+            data['table'] = livro.objects.all().order_by('-data' , '-criado_em')
         else:
             data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
             data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-            data['db'] = livro.objects.all()  # livroForm()
+            data['db'] = livro.objects.all().order_by('-data' , '-criado_em')  # livroForm()
     else:
         data['rc'] = livro.objects.all().order_by('-criado_em')[:5]
         data['re'] = livro.objects.all().order_by('-editado_em')[:5]
-        data['db'] = livro.objects.all()
+        data['db'] = livro.objects.all().order_by('-data' , '-criado_em')
     return render(request, "table.html", data)
 
 
@@ -200,7 +200,7 @@ def list_emprestimo(request):
     if searchem:
         data['rce'] = emprestimo.objects.all().order_by('-criado_emp')[:5]
         data['ree'] = emprestimo.objects.all().order_by('-editado_emp')[:5]
-        data["filter"] = emprestimo.objects.filter(pessoa__icontains=searchem)
+        data["filter"] = emprestimo.objects.filter(pessoa__icontains=searchem).order_by('-dataem')
         paginator = Paginator(data['filter'], 10)
         page = request.GET.get('page')
         data['filter'] = paginator.get_page(page)
@@ -208,7 +208,7 @@ def list_emprestimo(request):
     elif filter:
         data['rce'] = emprestimo.objects.all().order_by('-criado_emp')[:5]
         data['ree'] = emprestimo.objects.all().order_by('-editado_emp')[:5]
-        data["filter"] = emprestimo.objects.filter(estado__icontains=filter).order_by('-criado_emp')
+        data["filter"] = emprestimo.objects.filter(estado__icontains=filter).order_by('-dataem')
         paginator = Paginator(data['filter'], 10)
         page = request.GET.get('page')
         data['filter'] = paginator.get_page(page)
@@ -258,7 +258,7 @@ def list_emprestimo(request):
     elif buscar_data:
         data['rce'] = emprestimo.objects.all().order_by('-criado_emp')[:5]
         data['ree'] = emprestimo.objects.all().order_by('-editado_emp')[:5]
-        data['filter'] = emprestimo.objects.filter(dataem__icontains=buscar_data)
+        data['filter'] = emprestimo.objects.filter(dataem__icontains=buscar_data).order_by('-dataem')
         paginator = Paginator(data['filter'], 10)
         page = request.GET.get('page')
         data['filter'] = paginator.get_page(page)
@@ -268,7 +268,7 @@ def list_emprestimo(request):
         data['ree'] = emprestimo.objects.all().order_by('-editado_emp')[:5]
         data["db"] = emprestimo.objects.all().order_by('-estado', '-criado_emp')
 
-        emprestimo_list = emprestimo.objects.all().order_by('-estado', '-criado_emp')
+        emprestimo_list = emprestimo.objects.all().order_by('-estado', '-dataem')
         paginator = Paginator(emprestimo_list, 10)
         page = request.GET.get('page')
         data['db'] = paginator.get_page(page)
@@ -365,7 +365,7 @@ def tableem(request):
     data = {}
     data['rce'] = emprestimo.objects.all().order_by('-criado_emp')[:5]
     data['ree'] = emprestimo.objects.all().order_by('-editado_emp')[:5]
-    data["db"] = data["db"] = emprestimo.objects.all().order_by('-estado', 'serie')  # livroForm()
+    data["db"] = data["db"] = emprestimo.objects.all().order_by('-estado','-dataem', 'serie')  # livroForm()
     return render(request, "tableem.html", data)
 
 
