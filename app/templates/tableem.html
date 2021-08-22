@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>PROJETO BLIBLIOTECA EMG</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <style type="text/css">
-        .main{
-            background-image: url(../static/img/livros.jpg)
-        }
-        .table{
-            background: #fff;
-            box-shadow: 0 4px 8px;
-        }
-    </style>
-</head>
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Tabela para PDF{%  endblock %}
+
+{% block content%}
 <body>
     <div class="col-8 m-auto pt-2 pb-2 text-center">
-        <h1>BIBLIOTECA-EMPRÉSTIMOS</h1>
+      <h1><i class="fas fa-download"></i>BIBLIOTECA-EMPRÉSTIMOS<i class="far fa-file-pdf"></i></h1>
     </div>
-    <div class="main">
+    <div class="main" style="background-image: url('../static/img/livros.jpg');">
         <div class="col-8 m-auto pt-2 pb-2 text-center" id="dados">
-            <table class="table" >
+            <table class="table table-bordered" >
                 <thead class="table-dark">
                   <tr>
                     <th scope="col">#</th>
@@ -56,21 +47,4 @@
             <a href="/emprestimo" class="btn btn-info">VOLTAR</a>
         </p>
     </div>
-    {% load static %}
-    <script src="{% static 'javascript.js' %}"></script>
-</body>
-<script language="JavaScript" type="text/javascript">
-        function funcao_pdf() {
-            var pegar_dados=document.getElementById('dados').innerHTML;
-            var janela = window.open( '  ' ,  '  ' ,'width=800,heigth=600');
-            janela.document.write('<html><head>');
-            janela.document.write('<title>PDF</title><style>table, th, td{border: 1px solid black; border-collapse: collapse;} table{margin: auto} td{height: 100px; width: 1000px; font-size: 25px; text-align: center;} th{width: 300px; font-size:25px; text-align: center;}</style></head>');
-            janela.document.write('<body>');
-            janela.document.write(pegar_dados);
-            janela.document.write('</body></html>');
-            janela.document.close();
-            janela.print();
-        }
-
-</script>
-</html>
+{% endblock %}

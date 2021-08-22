@@ -1,52 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Formulário</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <style type="text/css">
-        form{
-            font: normal 20px Arial;
-            box-shadow: 0 4px 8px;
-            background-color: #FFC0CB;
-        }
-        h1{
-            font-family: Arial;
-            font-weight: bold;
-        }
-        h3{
-            background: #4B0082;
-            color: #FFF;
-        }
-        body{
-            background-color: #FFE4E1;
-        }
-        #atributos{
-            font-family: Arial;
-            font-weight: bold;
-        }
-        #livros{
-            width: 300px;
-        }
-        #edicao{
-            border-style: solid;
-            border-color: #4B0082;
-            background-color: #800000;
-            font-size: 20px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Edição{%  endblock %}
+
+{% block content%}
     <div class="col-8 m-auto pt-2 pb-2 text-center">
         <h1>Edição dos Empréstimos</h1>
         <h3 id="edicao">Ultima edição: {{emprestimo.editado_emp}}</h3>
     </div>
     <div class="col-8 m-auto pt-4 pb-2 text-center">
         <div id="result"> </div>
-        <form name="formem" id="formem" action="/editemp/{{pk}}/" method="post">
+        <form name="formem" id="formem" action="/editemp/{{pk}}/" method="post" style="font: normal 20px Arial;box-shadow: 0 4px 8px;background-color: #FFC0CB;">
             {% csrf_token %}
         <!--{{form.as_p}}-->
             <br>
@@ -118,18 +83,9 @@
                 </div>
             </div>
             <div class="p-2">
-                <a href="/emprestimo" class="btn btn-info mt-4">Voltar</a>
+                <a href="javascript:void(0)" onClick="history.go(-1); return false;" class="btn btn-info mt-4">Voltar</a>
                 <input type="submit" class="btn btn-success mt-4" id="salvar" value="Salvar">
             </div>
         </form>
     </div>
-    {% load static %}
-    <script src="{% static 'javascript.js' %}"></script>
-    <script language="JavaScript" type="text/javascript">
-        $(document).ready(function() {
-
-            $('#livros').select2({ maximumSelectionLength: 1 });
-        });
-    </script>
-</body>
-</html>
+{% endblock %}

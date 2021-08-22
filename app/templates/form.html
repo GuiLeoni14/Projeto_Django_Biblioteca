@@ -1,39 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Formulário</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <style type="text/css">
-        form{
-            font: normal 20px Arial;
-            box-shadow: 0 4px 8px;
-            background-color: #FFC0CB;
-        }
-        h1{
-            font-family: Arial;
-            font-weight: bold;
-        }
-        h3{
-            background: #4B0082;
-            color: #FFF;
-        }
-        body{
-            background-color: #FFE4E1;
-        }
-        #atributos{
-            font-family: Arial;
-            font-weight: bold;
-        }
-        #edicao{
-            border-style: solid;
-            border-color: #4B0082;
-            background-color: #800000;
-            font-size: 20px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Adicionar/Editar{%  endblock %}
+
+{% block content%}
     <div class="col-6 m-auto pt-2 pb-2 text-center">
         <h1>Cadastro dos Livros</h1>
         {% if db %}
@@ -109,7 +80,4 @@
             </div>
         </form>
     </div>
-    {% load static %}
-    <script src="{% static 'javascript.js' %}"></script>
-</body>
-</html>
+{% endblock %}
